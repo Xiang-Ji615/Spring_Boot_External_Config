@@ -63,36 +63,51 @@
 
 	<build>
 		<finalName>SpringBoot</finalName>
-		<resources>
-			<resource>
-				<filtering>false</filtering>
-				<directory>config</directory>
-				<includes>
-					<include>*.properties</include>
-				</includes>
-			</resource>
-		</resources>
+		<!-- resources> <resource> <filtering>false</filtering> <directory>config</directory> 
+			<includes> <include>*.properties</include> </includes> </resource> </resources -->
 
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<executable>true</executable>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
+						<id>copy-resources-1</id>
+						<phase>validate</phase>
 						<goals>
-							<goal>add-source</goal>
+							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<sources>
-								<source>config</source>
-							</sources>
+							<outputDirectory>${basedir}/target/config</outputDirectory>
+							<resources>
+								<resource>
+									<directory>config</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-2</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/config</outputDirectory>
+							<resources>
+								<resource>
+									<directory>config</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
